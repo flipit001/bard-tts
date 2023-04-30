@@ -14,7 +14,6 @@ class theengine:
         self.voices = self.engine.getProperty('voices')
         self.engine.setProperty('voice', self.voices[0].id)
         self.chat = Conversation(secret_token())
-        self.talk("Hey there, I am bard, if you want me to listen to you say bard at the start of your sentence")
 
     def talk(self, text):
         self.engine.say(text)
