@@ -25,9 +25,11 @@ class theengine:
             print('listening...')
             user_input = self.listener.listen(source)                # get user input (voice)
             voice = self.listener.recognize_google(user_input)       # uses Google API
-            voice = voice.lower()                               # makes sure input string is lowercase
+            voice = ' '+voice.lower()+' '                               # makes sure input string is lowercase
         print(voice)
-        if "bard" in voice:
+        if " bard " in voice:
+            voice = voice.replace(voice[0:voice.find(" bard ")])
+            print(voice)
             self.talk("ok, I will now answer")
             response = self.chat.start(voice)
             print(response)
