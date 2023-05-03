@@ -1,7 +1,7 @@
 from Bard import Chatbot
 def secret_token(tokenfile):
     with open(tokenfile, "r") as fh:  
-        return fh.read() 
+        return fh.read().replace("\n", "") 
 class Conversation:
     def __init__(self, token):
         self.token = token
