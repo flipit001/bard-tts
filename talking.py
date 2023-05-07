@@ -15,7 +15,7 @@ class theengine:
         self.voices = self.engine.getProperty('voices')
         self.engine.setProperty('voice', self.voices[0].id)
         self.chat = Conversation(secret_token("token.txt"))
-        self.engine.setProperty('rate', 50)
+        self.engine.setProperty('rate', 210)
 
     def talk(self, text):
         self.engine.say(text)
@@ -40,6 +40,7 @@ class theengine:
                 self.talk(response)
         except:
             self.talk("can you say that again, I could not understand you")
-            return get_command()
+            print("can you say that again, I could not understand you")
+            return self.get_command()
         
         
