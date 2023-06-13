@@ -23,24 +23,33 @@ class theengine:
 
 
     def get_command(self):
-        try: 
-            with self.microphone as source:
-                print('listening...')
-                user_input = self.listener.listen(source)                # get user input (voice)
-                voice = self.listener.recognize_google(user_input, language="en")
-                voice = json.dumps(voice, ensure_ascii=False).encode('utf8').decode("ascii")# uses Google API
-                voice = voice.lower()                               # makes sure input string is lowercase
-
-            if "bard" in voice:
-                voice = voice.replace(voice[0:voice.find(" bard ")], "")
-                print(voice)
-                self.talk("ok, I will now answer")
-                response = self.chat.start(voice)
-                print(response)
-                self.talk(response)
-        except:
-            self.talk("can you say that again, I could not understand you")
-            print("can you say that again, I could not understand you")
-            return self.get_command()
+        with self.microphone as source:
+            print('listening...')
+            user_input = self.listener.listen(source)                # get user input (voice)
+            voice = self.listener.recognize_google(user_input, language="en")
+            voice = json.dumps(voice, ensure_ascii=False).encode('utf8').decode("ascii")# uses Google API
+            voice = voice.lower()                               # makes sure input string is lowercase
+        print(voice)
+        if "hey engine" in voice:
+            self.talk("ok, I will now answer")
+            response = self.chat.start(voice)
+            print(response)
+            with open("text.txt", "w") as fh:
+                fh.write(f"""
+                What you said:
+                '
+                {voice}
+                '
+                What engine said:
+                '
+                {response}
+                '
+                """)
+            self.talk(response)
+        # except KeyboardInterrupt:
+        #     raise KeyboardInterrupt("exiting")
+        # except:
+        #     self.talk("can you say that again, I could not understand you")
+        #     print("can you say that again, I could not understand you")
         
         
